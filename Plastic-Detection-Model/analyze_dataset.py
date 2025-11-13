@@ -16,16 +16,32 @@ def analyze_dataset(dataset_path='training_dataset/training_dataset'):
     
     dataset_dir = Path(dataset_path)
     
+    # Try alternative paths if default doesn't exist
     if not dataset_dir.exists():
-        print(f"❌ Dataset not found at: {dataset_dir}")
-        return
+        alternative_paths = [
+            'training_dataset',
+            '../training_dataset/training_dataset',
+            './training_dataset/training_dataset'
+        ]
+        for alt_path in alternative_paths:
+            alt_dir = Path(alt_path)
+            if alt_dir.exists() and any(alt_dir.iterdir()):
+                dataset_dir = alt_dir
+                print(f"📁 Found dataset at: {dataset_dir.absolute()}")
+                break
+        else:
+            print(f"❌ Dataset not found at: {dataset_path}")
+            print(f"❌ Also tried: {alternative_paths}")
+            print(f"\n💡 Please extract training_dataset.zip first:")
+            print(f"   !unzip -q training_dataset.zip")
+            return None, 0
     
     # Get all class directories
     class_dirs = [d for d in dataset_dir.iterdir() if d.is_dir()]
     
     if not class_dirs:
         print(f"❌ No class directories found in: {dataset_dir}")
-        return
+        return None, 0
     
     print(f"\n📁 Dataset Location: {dataset_dir.absolute()}")
     print(f"📊 Number of Classes: {len(class_dirs)}")
@@ -259,14 +275,19 @@ if __name__ == '__main__':
     print("\n🔍 Starting Dataset Analysis...\n")
     
     # Analyze dataset
-    class_stats, total_images = analyze_dataset()
+    result = analyze_dataset()
     
-    # Check image quality
-    check_image_quality()
-    
-    print("\n✅ Analysis Complete!")
-    print("\nNext Steps:")
-    print("  1. Review the class distribution and imbalance")
-    print("  2. Check if you need to collect more data")
-    print("  3. Prepare data augmentation strategy")
-    print("  4. Run training with appropriate hyperparameters")
+    if result is not None:
+        class_stats, total_images = result
+        
+        # Check image quality
+        check_image_quality()
+        
+        print("\n✅ Analysis Complete!")
+        print("\nNext Steps:")
+        print("  1. Review the class distribution and imbalance")
+        print("  2. Check if you need to collect more data")
+        print("  3. Prepare data augmentation strategy")
+        print("  4. Run training with appropriate hyperparameters")
+    else:
+        print("\n❌ Analysis failed. Please check the dataset path.")

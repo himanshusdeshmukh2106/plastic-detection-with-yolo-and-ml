@@ -24,13 +24,27 @@ cd Plastic-Detection-Model
 unzip training_dataset.zip
 # This will create: training_dataset/training_dataset/ with 6 class folders
 cd ..
-
-# For Object Detection Model (if you have the dataset)
-cd Plastic-Detection-in-River
-# Download dataset from: https://huggingface.co/datasets/Kili/plastic_in_river
-# Or run: python convert_to_yolo.py
-cd ..
 ```
+
+### 🌐 Google Colab Setup
+
+**Quick Start on Colab:**
+```python
+# Clone and setup
+!git clone https://github.com/himanshusdeshmukh2106/plastic-detection-with-yolo-and-ml.git
+%cd plastic-detection-with-yolo-and-ml/Plastic-Detection-Model
+
+# Extract dataset
+!unzip -q training_dataset.zip
+
+# Install dependencies
+!pip install -q tensorflow pillow numpy
+
+# Train model
+!python train_improved_classification.py
+```
+
+📓 **See [COLAB_SETUP.md](Plastic-Detection-Model/COLAB_SETUP.md) for complete Colab notebook**
 
 3. **Install dependencies**
 ```bash
