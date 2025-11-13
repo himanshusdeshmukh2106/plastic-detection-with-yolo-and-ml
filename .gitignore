@@ -1,0 +1,92 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# TensorFlow / PyTorch
+*.h5
+*.pb
+*.pth
+*.pt
+*.onnx
+*.tflite
+saved_model/
+checkpoints/
+logs/
+
+# Training outputs (exclude large model files but keep structure)
+tf_files/bottlenecks/
+tf_files/training_summaries/
+tf_files_improved/*.h5
+tf_files_improved/saved_model/
+runs/detect/*/weights/*.pt
+runs/detect/*/weights/*.onnx
+
+# Dataset folders (unzipped) - EXCLUDE THESE
+Plastic-Detection-Model/training_dataset/training_dataset/
+Plastic-Detection-in-River/images/
+Plastic-Detection-in-River/labels/
+Plastic-Detection-in-River/datasets/
+
+# Keep zip files - INCLUDE THESE
+!*.zip
+
+# Temporary files
+*.tmp
+*.temp
+temp.png
+write_test.png
+testing.png
+output.png
+
+# Large files
+*.tar.gz
+*.tgz
+
+# Environment variables
+.env
+env.py
+
+# Firebase credentials
+*firebase*.json
+serviceAccountKey.json
+
+# System files
+Thumbs.db
+desktop.ini
