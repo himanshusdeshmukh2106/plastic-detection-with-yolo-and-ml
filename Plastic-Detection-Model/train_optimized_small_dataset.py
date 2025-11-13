@@ -277,8 +277,12 @@ def save_model(model, train_gen):
             f.write(f"{class_name}\n")
     print(f"  ✅ Saved: {labels_path}")
     
-    model.save(os.path.join(CONFIG['output_dir'], 'saved_model'))
-    print(f"  ✅ Saved: {CONFIG['output_dir']}/saved_model")
+    # Save in Keras format (new standard)
+    try:
+        model.save(os.path.join(CONFIG['output_dir'], 'final_model.keras'))
+        print(f"  ✅ Saved: {CONFIG['output_dir']}/final_model.keras")
+    except Exception as e:
+        print(f"  ⚠️  Could not save Keras format: {e}")
     
     print("\n✅ Training complete!")
 
