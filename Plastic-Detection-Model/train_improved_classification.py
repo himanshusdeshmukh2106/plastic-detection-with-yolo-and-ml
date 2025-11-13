@@ -24,6 +24,16 @@ CONFIG = {
     'output_dir': 'tf_files_improved',
 }
 
+# Auto-detect dataset path if default doesn't exist
+from pathlib import Path
+if not Path(CONFIG['dataset_path']).exists():
+    possible_paths = ['training_dataset', '../training_dataset/training_dataset']
+    for path in possible_paths:
+        if Path(path).exists() and any(Path(path).iterdir()):
+            CONFIG['dataset_path'] = path
+            print(f"📁 Using dataset path: {path}")
+            break
+
 # Create output directory
 os.makedirs(CONFIG['output_dir'], exist_ok=True)
 

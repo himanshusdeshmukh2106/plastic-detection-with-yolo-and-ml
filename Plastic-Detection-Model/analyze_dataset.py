@@ -280,8 +280,20 @@ if __name__ == '__main__':
     if result is not None:
         class_stats, total_images = result
         
-        # Check image quality
-        check_image_quality()
+        # Try to check image quality with the found path
+        try:
+            # Use the path that was found during analysis
+            possible_paths = [
+                'training_dataset',
+                'training_dataset/training_dataset',
+                '../training_dataset/training_dataset',
+            ]
+            for path in possible_paths:
+                if Path(path).exists():
+                    check_image_quality(path)
+                    break
+        except Exception as e:
+            print(f"\n⚠️  Image quality analysis skipped: {e}")
         
         print("\n✅ Analysis Complete!")
         print("\nNext Steps:")

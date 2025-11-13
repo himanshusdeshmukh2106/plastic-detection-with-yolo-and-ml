@@ -1,0 +1,69 @@
+================================================================================
+GOOGLE COLAB - QUICK START COMMANDS
+================================================================================
+
+Copy and paste these commands into Google Colab cells:
+
+--------------------------------------------------------------------------------
+CELL 1: Clone and Setup
+--------------------------------------------------------------------------------
+!git clone https://github.com/himanshusdeshmukh2106/plastic-detection-with-yolo-and-ml.git
+%cd plastic-detection-with-yolo-and-ml/Plastic-Detection-Model
+!unzip -q training_dataset.zip
+!python check_dataset_path.py
+!pip install -q tensorflow pillow numpy
+
+--------------------------------------------------------------------------------
+CELL 2: Verify GPU
+--------------------------------------------------------------------------------
+import tensorflow as tf
+print("GPU Available:", len(tf.config.list_physical_devices('GPU')) > 0)
+print("TensorFlow Version:", tf.__version__)
+
+--------------------------------------------------------------------------------
+CELL 3: Analyze Dataset
+--------------------------------------------------------------------------------
+!python analyze_dataset.py
+
+--------------------------------------------------------------------------------
+CELL 4: Train Model (30-45 minutes on GPU)
+--------------------------------------------------------------------------------
+!python train_improved_classification.py
+
+--------------------------------------------------------------------------------
+CELL 5: Test Model
+--------------------------------------------------------------------------------
+!python test_improved_model.py
+
+--------------------------------------------------------------------------------
+CELL 6: Download Trained Model
+--------------------------------------------------------------------------------
+from google.colab import files
+files.download('tf_files_improved/final_model.h5')
+files.download('tf_files_improved/labels.txt')
+
+================================================================================
+EXPECTED RESULTS
+================================================================================
+
+After training, you should see:
+- Validation Accuracy: 85-92%
+- Top-2 Accuracy: 95-98%
+- Per-class accuracy: 80-95% for each class
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+If "Dataset not found":
+  !python check_dataset_path.py
+  !ls -la training_dataset/training_dataset/
+
+If "Out of memory":
+  Edit train_improved_classification.py
+  Change: 'batch_size': 32 → 'batch_size': 16
+
+If "No GPU":
+  Runtime → Change runtime type → Hardware accelerator → GPU
+
+================================================================================
