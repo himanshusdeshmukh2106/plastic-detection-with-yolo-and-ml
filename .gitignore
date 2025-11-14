@@ -55,8 +55,17 @@ tf_files/bottlenecks/
 tf_files/training_summaries/
 tf_files_improved/*.h5
 tf_files_improved/saved_model/
+tf_files_optimized/*.h5
+tf_files_optimized/saved_model/
 runs/detect/*/weights/*.pt
 runs/detect/*/weights/*.onnx
+
+# Ensemble models (too large for GitHub)
+ensemble_models/
+tf_files_ensemble/
+**/model_*/
+*.h5
+*.keras
 
 # Dataset folders (unzipped) - EXCLUDE THESE
 Plastic-Detection-Model/training_dataset/training_dataset/
@@ -64,8 +73,11 @@ Plastic-Detection-in-River/images/
 Plastic-Detection-in-River/labels/
 Plastic-Detection-in-River/datasets/
 
-# Keep zip files - INCLUDE THESE
-!*.zip
+# Keep training dataset zip file
+!training_dataset.zip
+
+# Exclude model zip files (too large for GitHub)
+ensemble_models.zip
 
 # Temporary files
 *.tmp
