@@ -1,3 +1,37 @@
+:root {
+  /* Light Theme Colors */
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --primary-light: #3b82f6;
+  --secondary: #10b981;
+  --secondary-dark: #059669;
+  --accent: #f59e0b;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --success: #10b981;
+  
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --bg-hover: #e2e8f0;
+  
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #94a3b8;
+  
+  --border: #e2e8f0;
+  --border-light: #f1f5f9;
+  
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  
+  --radius: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,100 +39,119 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #0b121d;
-  color: #f7f9fc;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
-a {
-  color: inherit;
-}
-
-.app {
+#root {
   min-height: 100vh;
-  background: radial-gradient(circle at top, rgba(54, 103, 255, 0.15), transparent 60%),
-    radial-gradient(circle at 20% 20%, rgba(41, 196, 164, 0.1), transparent 45%),
-    linear-gradient(160deg, #050b14 0%, #121c2e 100%);
 }
 
-.navbar {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px);
-  background: rgba(9, 16, 30, 0.8);
-}
-
-.nav-container {
-  max-width: 1200px;
+/* Utility Classes */
+.container {
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 18px 32px;
-  display: flex;
+  padding: 0 1.5rem;
+}
+
+.card {
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.btn {
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius);
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  gap: 0.5rem;
+  font-size: 0.875rem;
 }
 
-.logo {
-  font-size: 1.4rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.btn-primary {
+  background: var(--primary);
+  color: white;
 }
 
-.nav-links {
-  display: flex;
-  gap: 12px;
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
-.nav-link {
-  position: relative;
-  padding: 10px 18px;
-  border-radius: 999px;
+.btn-secondary {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-hover);
+}
+
+.btn-success {
+  background: var(--success);
+  color: white;
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-  transition: color 0.2s ease, background 0.2s ease;
+  display: inline-block;
 }
 
-.nav-link::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 999px;
-  background: linear-gradient(120deg, rgba(93, 118, 255, 0.28), rgba(53, 205, 173, 0.28));
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  z-index: -1;
+.badge-success {
+  background: #d1fae5;
+  color: #065f46;
 }
 
-.nav-link:hover,
-.nav-link.active {
-  color: #ffffff;
+.badge-warning {
+  background: #fef3c7;
+  color: #92400e;
 }
 
-.nav-link:hover::after,
-.nav-link.active::after {
-  opacity: 1;
+.badge-danger {
+  background: #fee2e2;
+  color: #991b1b;
 }
 
-.app-main {
-  padding: 48px 32px 64px;
+.badge-info {
+  background: #dbeafe;
+  color: #1e40af;
 }
 
-@media (max-width: 768px) {
-  .nav-container {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 16px 20px;
-  }
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
 
-  .nav-links {
-    width: 100%;
-    justify-content: space-between;
-  }
+::-webkit-scrollbar-track {
+  background: var(--bg-tertiary);
+}
 
-  .app-main {
-    padding: 32px 16px 48px;
-  }
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
 }

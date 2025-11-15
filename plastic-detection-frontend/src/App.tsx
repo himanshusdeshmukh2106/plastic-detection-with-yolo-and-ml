@@ -1,43 +1,81 @@
-import { type ReactElement } from 'react'
-import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom'
-import MobileCapture from './components/MobileCapture.tsx'
-import Dashboard from './components/Dashboard.tsx'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import DashboardHome from './components/DashboardHome';
+import MapInterface from './components/MapInterface';
+import DetectionDetails from './components/DetectionDetails';
+import Analytics from './components/Analytics';
+import UploadInterface from './components/UploadInterface';
+import AdminPanel from './components/AdminPanel';
+import PublicPortal from './components/PublicPortal';
+import Layout from './components/Layout';
+import ProtectedRoute from './components/ProtectedRoute';
+import { AuthProvider } from './context/AuthContext';
+import Login from './components/Login';
+import NotFound from './components/NotFound';
+import './App.css';
 
-function App(): ReactElement {
+function App() {
   return (
     <Router>
-      <div className="app">
-        <nav className="navbar">
-          <div className="nav-container">
-            <h1 className="logo">Plastic Watch</h1>
-            <div className="nav-links">
-              <NavLink
-                to="/"
-                end
-                className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
-              >
-                Mobile Capture
-              </NavLink>
-              <NavLink
-                to="/dashboard"
-                className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
-              >
-                Impact Dashboard
-              </NavLink>
-            </div>
-          </div>
-        </nav>
-
-        <main className="app-main">
-          <Routes>
-            <Route path="/" element={<MobileCapture />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-          </Routes>
-        </main>
-      </div>
+      <AuthProvider>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route
+              path="/dashboard"
+              element={(
+                <ProtectedRoute>
+                  <DashboardHome />
+                </ProtectedRoute>
+              )}
+            />
+            <Route
+              path="/map"
+              element={(
+                <ProtectedRoute>
+                  <MapInterface />
+                </ProtectedRoute>
+              )}
+            />
+            <Route
+              path="/detection/:id"
+              element={(
+                <ProtectedRoute>
+                  <DetectionDetails />
+                </ProtectedRoute>
+              )}
+            />
+            <Route
+              path="/analytics"
+              element={(
+                <ProtectedRoute>
+                  <Analytics />
+                </ProtectedRoute>
+              )}
+            />
+            <Route
+              path="/upload"
+              element={(
+                <ProtectedRoute>
+                  <UploadInterface />
+                </ProtectedRoute>
+              )}
+            />
+            <Route
+              path="/admin"
+              element={(
+                <ProtectedRoute roles={['admin']}>
+                  <AdminPanel />
+                </ProtectedRoute>
+              )}
+            />
+            <Route path="/public" element={<PublicPortal />} />
+          </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AuthProvider>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;
